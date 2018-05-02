@@ -148,15 +148,16 @@
 
 #ifdef MOS_WINDOWS
 #  ifdef MUTIL_LIB_BUILD
-#    if 1
+#    ifdef BNCSUTIL_EXPORTS
 #      define MEXP(type) __declspec(dllexport) type __stdcall
+#      define MCEXP(name) class __declspec(dllexport) name
 #    else
-#      define MEXP(type) type __stdcall
+#      define MEXP(type) __declspec(dllimport) type __stdcall
+#      define MCEXP(name) class __declspec(dllimport) name
 #    endif
-#    define MCEXP(name) class __declspec(dllexport) name
 #  else
-#    define MEXP(type) __declspec(dllimport) type __stdcall
-#    define MCEXP(name) class __declspec(dllimport) name
+#    define MEXP(type) type
+#    define MCEXP(name) class name
 #  endif
 #else
 #  ifdef MUTIL_LIB_BUILD
